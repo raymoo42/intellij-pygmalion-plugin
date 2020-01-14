@@ -1,0 +1,20 @@
+{
+  parserClass="dev.bakakawaii.parser.PygmalionParser"
+
+  extends="com.intellij.extapi.psi.ASTWrapperPsiElement"
+
+  psiClassPrefix="Pygmalion"
+  psiImplClassSuffix="Impl"
+  psiPackage="dev.bakakawaii.psi"
+  psiImplPackage="dev.bakakawaii.psi.impl"
+
+  elementTypeHolderClass="dev.bakakawaii.psi.PygmalionTypes"
+  elementTypeClass="dev.bakakawaii.psi.PygmalionElementType"
+  tokenTypeClass="dev.bakakawaii.psi.PygmalionTokenType"
+}
+
+simpleFile ::= item_*
+
+private item_ ::= (property|COMMENT|CRLF)
+
+property ::= (KEY? SEPARATOR VALUE?) | KEY

@@ -1,0 +1,19 @@
+<idea-plugin>
+  <version>1.0-SNAPSHOT</version>
+  <change-notes>
+      Add change notes here.&lt;br&gt;
+      &lt;em&gt;most HTML tags may be used&lt;/em&gt;</change-notes>
+  <idea-version since-build="193.5662" until-build="193.*"/>
+  <id>org.example.intellij-pygmalion-plugin</id>
+  <name>Pygmalion Language Support</name>
+  <vendor email="leader@baka-kawaii.dev" url="">Baka Kawaii Dev</vendor>
+  <description>
+        &lt;h2&gt;Pygmalion Language Plugin&lt;/h2&gt;
+        &lt;p&gt;The only plugin giving you full Language Support for pygmalion config ( *.pconf ) files&lt;/p&gt;
+    </description>
+  <depends>com.intellij.modules.platform</depends>
+  <extensions defaultExtensionNs="com.intellij">
+    <fileType name="Pygmalion config" implementationClass="dev.bakakawaii.PygmalionFileType" fieldName="INSTANCE" language="Pygmalion" extensions="pyconf"/>
+  </extensions>
+  <actions/>
+</idea-plugin>
