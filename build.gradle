@@ -48,7 +48,7 @@ grammarKit {
     grammarKitRelease = '07f30a1'
 }
 
-task generatePerlLexer(type: GenerateLexer) {
+task generateLexer(type: GenerateLexer) {
     // source flex file
     source = "src/main/resources/grammar/pygmalion.flex"
 
@@ -65,7 +65,7 @@ task generatePerlLexer(type: GenerateLexer) {
     purgeOldFiles = true
 }
 
-task generatePerl5Parser(type: GenerateParser) {
+task generateParser(type: GenerateParser) {
     // source bnf file
     source = "src/main/resources/grammar/pygmalion.bnf"
 
