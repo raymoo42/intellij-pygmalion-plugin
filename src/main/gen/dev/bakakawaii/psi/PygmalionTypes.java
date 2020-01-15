@@ -8,19 +8,23 @@ import dev.bakakawaii.psi.impl.*;
 
 public interface PygmalionTypes {
 
-  IElementType PROPERTY = new PygmalionElementType("PROPERTY");
+  IElementType FLAG = new PygmalionElementType("FLAG");
+  IElementType STATEMENT = new PygmalionElementType("STATEMENT");
 
-  IElementType COMMENT = new PygmalionTokenType("COMMENT");
+  IElementType ARGUMENT = new PygmalionTokenType("argument");
+  IElementType COMMAND = new PygmalionTokenType("command");
   IElementType CRLF = new PygmalionTokenType("CRLF");
-  IElementType KEY = new PygmalionTokenType("KEY");
-  IElementType SEPARATOR = new PygmalionTokenType("SEPARATOR");
-  IElementType VALUE = new PygmalionTokenType("VALUE");
+  IElementType FLAGNAME = new PygmalionTokenType("flagname");
+  IElementType STRING = new PygmalionTokenType("string");
 
   class Factory {
     public static PsiElement createElement(ASTNode node) {
       IElementType type = node.getElementType();
-      if (type == PROPERTY) {
-        return new PygmalionPropertyImpl(node);
+      if (type == FLAG) {
+        return new PygmalionFlagImpl(node);
+      }
+      else if (type == STATEMENT) {
+        return new PygmalionStatementImpl(node);
       }
       throw new AssertionError("Unknown element type: " + type);
     }

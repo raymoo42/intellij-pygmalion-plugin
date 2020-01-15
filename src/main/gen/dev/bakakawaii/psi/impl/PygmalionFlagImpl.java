@@ -11,14 +11,14 @@ import static dev.bakakawaii.psi.PygmalionTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import dev.bakakawaii.psi.*;
 
-public class PygmalionPropertyImpl extends ASTWrapperPsiElement implements PygmalionProperty {
+public class PygmalionFlagImpl extends ASTWrapperPsiElement implements PygmalionFlag {
 
-  public PygmalionPropertyImpl(@NotNull ASTNode node) {
+  public PygmalionFlagImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull PygmalionVisitor visitor) {
-    visitor.visitProperty(this);
+    visitor.visitFlag(this);
   }
 
   public void accept(@NotNull PsiElementVisitor visitor) {
