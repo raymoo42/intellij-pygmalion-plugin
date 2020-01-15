@@ -2,9 +2,9 @@
 
 package dev.bakakawaii;
 
+import dev.bakakawaii.psi.PygmalionTypes;
 import com.intellij.lexer.FlexLexer;
 import com.intellij.psi.tree.IElementType;
-import com.simpleplugin.psi.SimpleTypes;
 import com.intellij.psi.TokenType;
 
 
@@ -490,7 +490,7 @@ class PygmalionLexer implements FlexLexer {
       else {
         switch (zzAction < 0 ? zzAction : ZZ_ACTION[zzAction]) {
           case 1: 
-            { yybegin(YYINITIAL); return SimpleTypes.KEY;
+            { yybegin(YYINITIAL); return PygmalionTypes.KEY;
             } 
             // fall through
           case 8: break;
@@ -505,17 +505,17 @@ class PygmalionLexer implements FlexLexer {
             // fall through
           case 10: break;
           case 4: 
-            { yybegin(YYINITIAL); return SimpleTypes.COMMENT;
+            { yybegin(YYINITIAL); return PygmalionTypes.COMMENT;
             } 
             // fall through
           case 11: break;
           case 5: 
-            { yybegin(WAITING_VALUE); return SimpleTypes.SEPARATOR;
+            { yybegin(WAITING_VALUE); return PygmalionTypes.SEPARATOR;
             } 
             // fall through
           case 12: break;
           case 6: 
-            { yybegin(YYINITIAL); return SimpleTypes.VALUE;
+            { yybegin(YYINITIAL); return PygmalionTypes.VALUE;
             } 
             // fall through
           case 13: break;

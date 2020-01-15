@@ -15,6 +15,8 @@
     <extensions defaultExtensionNs="com.intellij">
             <fileType name="Pygmalion config" implementationClass="dev.bakakawaii.PygmalionFileType" fieldName="INSTANCE"
                       language="Pygmalion" extensions="pyconf"/>
+        <lang.parserDefinition language="Pygmalion" implementationClass="dev.bakakawaii.PygmalionParserDefinition"/>
+
     </extensions>
 
     <actions>

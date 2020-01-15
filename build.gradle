@@ -1,7 +1,11 @@
 plugins {
     id 'java'
+    id 'idea'
     id 'org.jetbrains.intellij' version '0.4.15'
+    id "org.jetbrains.grammarkit" version "2019.3"
 }
+
+apply plugin: 'org.jetbrains.grammarkit'
 
 group 'org.example'
 version '1.0-SNAPSHOT'
@@ -16,6 +20,8 @@ dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
 }
 
+import org.jetbrains.grammarkit.tasks.*
+
 // See https://github.com/JetBrains/gradle-intellij-plugin/
 intellij {
     version '2019.3.1'
@@ -24,4 +30,51 @@ patchPluginXml {
     changeNotes """
       Add change notes here.<br>
       <em>most HTML tags may be used</em>"""
+}
+
+sourceSets.main.java.srcDirs += 'src/main/gen'
+idea {
+    module {
+        // Marks the already(!) added srcDir as "generated"
+        generatedSourceDirs += file('src/main/gen')
+    }
+}
+
+grammarKit {
+    // version of IntelliJ patched JFlex (see bintray link below), Default is 1.7.0-1
+    jflexRelease = '1.7.0-2'
+
+    // tag or short commit hash of Grammar-Kit to use (see link below). Default is 2019.1.1
+    grammarKitRelease = '07f30a1'
+}
+
+task generatePerlLexer(type: GenerateLexer) {
+    // source flex file
+    source = "src/main/resources/grammar/pygmalion.flex"
+
+    // target directory for lexer
+    targetDir = "src/main/gen/dev/bakakawaii"
+
+    // target classname, target file will be targetDir/targetClass.java
+    targetClass = "PygmalionLexer"
+
+    skeleton = 'src/main/resources/grammar/idea-flex.skeleton'
+
+
+    // if set, plugin will remove a lexer output file before generating new one. Default: false
+    purgeOldFiles = true
+}
+
+task generatePerl5Parser(type: GenerateParser) {
+    // source bnf file
+    source = "src/main/resources/grammar/pygmalion.bnf"
+
+    // optional, task-specific root for the generated files. Default: none
+    targetRoot = 'src/main/gen'
+
+    // path to a parser file, relative to the targetRoot
+    pathToParser = 'dev/bakakawaii/parser/PygmalionParser.java'
+
+    // path to a directory with generated psi files, relative to the targetRoot
+    pathToPsiRoot = 'dev/bakakawaii/psi'
 }
