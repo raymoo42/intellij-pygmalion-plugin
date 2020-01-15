@@ -15,15 +15,15 @@ import com.intellij.psi.TokenType;
 %eof{  return;
 %eof}
 
-CRLF            = \R
-WHITE_SPACE     = \s
+CRLF            = \n|\r\n
+WHITE_SPACE     = [\ ]
 ARGUMENT        = [a-zA-Z0-9_.\-]+
 IDENTIFIER      = [a-zA-Z]+
 STRING_LITERAL  = [\"|\'][^\n\f\\]*[\"|\']
+
 FLAG            = [\-]{2}[a-zA-Z]+[a-zA-Z\-]*
 
 %state CMD
-%state FLAG
 
 %%
 
@@ -32,26 +32,16 @@ FLAG            = [\-]{2}[a-zA-Z]+[a-zA-Z\-]*
 }
 
 <CMD> {
-    {CRLF}                    { yybegin(YYINITIAL);return TokenType.WHITE_SPACE; }
-
-    {STRING_LITERAL}          { return PygmalionTypes.STRING; }
-    {ARGUMENT}                { return PygmalionTypes.ARGUMENT; }
+    {CRLF}                    { yybegin(YYINITIAL);return PygmalionTypes.CRLF; }
 
     {FLAG}                    { return PygmalionTypes.FLAGNAME; }
-    {WHITE_SPACE}+            { yybegin(CMD); return TokenType.WHITE_SPACE; }
+    {STRING_LITERAL}          { return PygmalionTypes.LITERAL; }
+
+    {ARGUMENT}                { return PygmalionTypes.VALUE; }
+
+    {WHITE_SPACE}+            { return TokenType.WHITE_SPACE; }
 }
 
-<FLAG> {
-    {WHITE_SPACE}             { yybegin(FLAG); return TokenType.WHITE_SPACE; }
-
-    {FLAG}                    { yybegin(FLAG); return PygmalionTypes.FLAGNAME; }
-
-    {STRING_LITERAL}          { yybegin(YYINITIAL); return PygmalionTypes.ARGUMENT; }
-    [^\n\f\\]+                { yybegin(YYINITIAL); return PygmalionTypes.ARGUMENT; }
-
-    {CRLF}                    { yybegin(YYINITIAL);return TokenType.WHITE_SPACE; }
-}
-
-({WHITE_SPACE} | {CRLF})+     { return TokenType.WHITE_SPACE; }
+({WHITE_SPACE} | {CRLF})     { return TokenType.WHITE_SPACE; }
 
 [^]                           { return TokenType.BAD_CHARACTER; }

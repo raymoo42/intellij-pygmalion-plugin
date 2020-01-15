@@ -28,6 +28,12 @@ public class PygmalionStatementImpl extends ASTWrapperPsiElement implements Pygm
 
   @Override
   @NotNull
+  public List<PygmalionArgument> getArgumentList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, PygmalionArgument.class);
+  }
+
+  @Override
+  @NotNull
   public List<PygmalionFlag> getFlagList() {
     return PsiTreeUtil.getChildrenOfTypeAsList(this, PygmalionFlag.class);
   }

@@ -7,6 +7,10 @@ import com.intellij.psi.PsiElement;
 
 public class PygmalionVisitor extends PsiElementVisitor {
 
+  public void visitArgument(@NotNull PygmalionArgument o) {
+    visitPsiElement(o);
+  }
+
   public void visitFlag(@NotNull PygmalionFlag o) {
     visitPsiElement(o);
   }

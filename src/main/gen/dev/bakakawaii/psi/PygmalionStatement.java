@@ -8,6 +8,9 @@ import com.intellij.psi.PsiElement;
 public interface PygmalionStatement extends PsiElement {
 
   @NotNull
+  List<PygmalionArgument> getArgumentList();
+
+  @NotNull
   List<PygmalionFlag> getFlagList();
 
 }

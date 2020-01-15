@@ -11,25 +11,19 @@ import static dev.bakakawaii.psi.PygmalionTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import dev.bakakawaii.psi.*;
 
-public class PygmalionFlagImpl extends ASTWrapperPsiElement implements PygmalionFlag {
+public class PygmalionArgumentImpl extends ASTWrapperPsiElement implements PygmalionArgument {
 
-  public PygmalionFlagImpl(@NotNull ASTNode node) {
+  public PygmalionArgumentImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull PygmalionVisitor visitor) {
-    visitor.visitFlag(this);
+    visitor.visitArgument(this);
   }
 
   public void accept(@NotNull PsiElementVisitor visitor) {
     if (visitor instanceof PygmalionVisitor) accept((PygmalionVisitor)visitor);
     else super.accept(visitor);
-  }
-
-  @Override
-  @Nullable
-  public PygmalionArgument getArgument() {
-    return findChildByClass(PygmalionArgument.class);
   }
 
 }

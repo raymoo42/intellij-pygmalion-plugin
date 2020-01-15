@@ -6,17 +6,18 @@
     <description><![CDATA[
         <h2>Pygmalion Language Plugin</h2>
         <p>The only plugin giving you full Language Support for pygmalion config ( *.pconf ) files</p>
-    ]]></description>
+        ]]></description>
 
     <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
          on how to target different products -->
     <depends>com.intellij.modules.platform</depends>
 
     <extensions defaultExtensionNs="com.intellij">
-            <fileType name="Pygmalion config" implementationClass="dev.bakakawaii.PygmalionFileType" fieldName="INSTANCE"
-                      language="Pygmalion" extensions="pyconf"/>
+        <fileType name="Pygmalion config" implementationClass="dev.bakakawaii.PygmalionFileType" fieldName="INSTANCE"
+                  language="Pygmalion" extensions="pyconf"/>
         <lang.parserDefinition language="Pygmalion" implementationClass="dev.bakakawaii.PygmalionParserDefinition"/>
 
+        <lang.syntaxHighlighterFactory language="Pygmalion" implementationClass="dev.bakakawaii.highlighter.SyntaxHighlighterFactory"/>
     </extensions>
 
     <actions>

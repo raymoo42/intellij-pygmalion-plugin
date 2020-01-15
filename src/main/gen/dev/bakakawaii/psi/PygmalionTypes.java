@@ -8,19 +8,23 @@ import dev.bakakawaii.psi.impl.*;
 
 public interface PygmalionTypes {
 
+  IElementType ARGUMENT = new PygmalionElementType("ARGUMENT");
   IElementType FLAG = new PygmalionElementType("FLAG");
   IElementType STATEMENT = new PygmalionElementType("STATEMENT");
 
-  IElementType ARGUMENT = new PygmalionTokenType("argument");
   IElementType COMMAND = new PygmalionTokenType("command");
   IElementType CRLF = new PygmalionTokenType("CRLF");
   IElementType FLAGNAME = new PygmalionTokenType("flagname");
-  IElementType STRING = new PygmalionTokenType("string");
+  IElementType LITERAL = new PygmalionTokenType("literal");
+  IElementType VALUE = new PygmalionTokenType("value");
 
   class Factory {
     public static PsiElement createElement(ASTNode node) {
       IElementType type = node.getElementType();
-      if (type == FLAG) {
+      if (type == ARGUMENT) {
+        return new PygmalionArgumentImpl(node);
+      }
+      else if (type == FLAG) {
         return new PygmalionFlagImpl(node);
       }
       else if (type == STATEMENT) {

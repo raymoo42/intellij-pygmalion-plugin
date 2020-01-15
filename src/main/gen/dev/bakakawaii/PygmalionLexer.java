@@ -24,7 +24,6 @@ class PygmalionLexer implements FlexLexer {
   /** lexical states */
   public static final int YYINITIAL = 0;
   public static final int CMD = 2;
-  public static final int FLAG = 4;
 
   /**
    * ZZ_LEXSTATE[l] is the state in the DFA for the lexical state l
@@ -33,31 +32,30 @@ class PygmalionLexer implements FlexLexer {
    * l is of the form l = 2*k, k a non negative integer
    */
   private static final int ZZ_LEXSTATE[] = { 
-     0,  0,  1,  1,  2, 2
+     0,  0,  1, 1
   };
 
   /** 
    * Translates characters to character classes
-   * Chosen bits are [7, 7, 7]
-   * Total runtime size is 1928 bytes
+   * Chosen bits are [8, 6, 7]
+   * Total runtime size is 1040 bytes
    */
   public static int ZZ_CMAP(int ch) {
-    return ZZ_CMAP_A[(ZZ_CMAP_Y[ZZ_CMAP_Z[ch>>14]|((ch>>7)&0x7f)]<<7)|(ch&0x7f)];
+    return ZZ_CMAP_A[ZZ_CMAP_Y[ZZ_CMAP_Z[ch>>13]|((ch>>7)&0x3f)]|(ch&0x7f)];
   }
 
-  /* The ZZ_CMAP_Z table has 68 entries */
+  /* The ZZ_CMAP_Z table has 136 entries */
   static final char ZZ_CMAP_Z[] = zzUnpackCMap(
-    "\1\0\103\200");
+    "\1\0\207\100");
 
-  /* The ZZ_CMAP_Y table has 256 entries */
+  /* The ZZ_CMAP_Y table has 128 entries */
   static final char ZZ_CMAP_Y[] = zzUnpackCMap(
-    "\1\0\1\1\53\2\1\3\22\2\1\4\37\2\1\3\237\2");
+    "\1\0\177\200");
 
-  /* The ZZ_CMAP_A table has 640 entries */
+  /* The ZZ_CMAP_A table has 256 entries */
   static final char ZZ_CMAP_A[] = zzUnpackCMap(
-    "\11\0\1\4\1\2\1\1\1\11\1\3\22\0\1\4\1\0\1\7\4\0\1\7\5\0\1\12\1\5\1\0\12\5"+
-    "\7\0\32\6\1\0\1\10\2\0\1\5\1\0\32\6\1\0\1\7\10\0\1\1\32\0\1\4\337\0\1\4\177"+
-    "\0\13\4\35\0\2\1\5\0\1\4\57\0\1\4\40\0");
+    "\12\0\1\1\1\0\1\7\1\2\22\0\1\3\1\0\1\6\4\0\1\6\5\0\1\10\1\4\1\0\12\4\7\0\32"+
+    "\5\1\0\1\7\2\0\1\4\1\0\32\5\1\0\1\6\203\0");
 
   /** 
    * Translates DFA states to action switch labels.
@@ -65,12 +63,11 @@ class PygmalionLexer implements FlexLexer {
   private static final int [] ZZ_ACTION = zzUnpackAction();
 
   private static final String ZZ_ACTION_PACKED_0 =
-    "\3\0\1\1\1\2\1\3\2\4\1\5\1\6\1\1"+
-    "\1\7\3\10\1\7\1\0\1\11\1\7\1\4\1\7"+
-    "\1\12";
+    "\2\0\1\1\1\2\1\1\1\3\1\4\1\1\1\2"+
+    "\1\5\1\1\1\5\1\0\1\6\1\5\1\7";
 
   private static int [] zzUnpackAction() {
-    int [] result = new int[22];
+    int [] result = new int[16];
     int offset = 0;
     offset = zzUnpackAction(ZZ_ACTION_PACKED_0, offset, result);
     return result;
@@ -95,12 +92,11 @@ class PygmalionLexer implements FlexLexer {
   private static final int [] ZZ_ROWMAP = zzUnpackRowMap();
 
   private static final String ZZ_ROWMAP_PACKED_0 =
-    "\0\0\0\13\0\26\0\41\0\54\0\67\0\102\0\115"+
-    "\0\102\0\130\0\143\0\156\0\171\0\54\0\204\0\217"+
-    "\0\143\0\143\0\171\0\54\0\232\0\245";
+    "\0\0\0\11\0\22\0\22\0\33\0\44\0\22\0\55"+
+    "\0\66\0\77\0\110\0\121\0\110\0\110\0\132\0\143";
 
   private static int [] zzUnpackRowMap() {
-    int [] result = new int[22];
+    int [] result = new int[16];
     int offset = 0;
     offset = zzUnpackRowMap(ZZ_ROWMAP_PACKED_0, offset, result);
     return result;
@@ -123,20 +119,15 @@ class PygmalionLexer implements FlexLexer {
   private static final int [] ZZ_TRANS = zzUnpackTrans();
 
   private static final String ZZ_TRANS_PACKED_0 =
-    "\1\4\4\5\1\4\1\6\2\4\1\5\2\4\2\7"+
-    "\1\10\1\11\2\12\1\13\1\4\1\7\1\12\1\14"+
-    "\1\15\1\16\1\17\1\15\3\14\1\4\1\16\1\20"+
-    "\14\0\4\5\4\0\1\5\7\0\1\6\5\0\4\11"+
-    "\4\0\1\11\2\0\1\11\1\7\2\11\4\0\1\11"+
-    "\6\0\2\12\3\0\1\12\2\21\1\0\4\21\1\22"+
-    "\2\0\1\21\2\14\1\0\5\14\2\0\2\14\1\23"+
-    "\1\5\2\23\3\14\1\0\1\5\2\14\1\23\1\24"+
-    "\2\23\3\14\1\0\1\5\3\14\1\0\5\14\2\0"+
-    "\1\25\2\14\1\0\3\14\1\26\1\14\2\0\3\14"+
-    "\1\0\3\14\1\26\1\14\2\0\1\26";
+    "\1\3\1\4\1\5\1\4\1\3\1\6\4\3\1\7"+
+    "\1\10\1\11\2\12\1\13\1\3\1\14\12\0\1\4"+
+    "\14\0\1\6\4\0\1\7\12\0\1\11\11\0\2\12"+
+    "\2\0\1\12\1\15\1\0\4\15\1\16\1\0\1\15"+
+    "\4\0\2\12\2\0\1\17\4\0\1\12\1\20\2\0"+
+    "\1\12\4\0\1\12\1\20\2\0\1\20";
 
   private static int [] zzUnpackTrans() {
-    int [] result = new int[176];
+    int [] result = new int[108];
     int offset = 0;
     offset = zzUnpackTrans(ZZ_TRANS_PACKED_0, offset, result);
     return result;
@@ -174,10 +165,10 @@ class PygmalionLexer implements FlexLexer {
   private static final int [] ZZ_ATTRIBUTE = zzUnpackAttribute();
 
   private static final String ZZ_ATTRIBUTE_PACKED_0 =
-    "\3\0\1\11\14\1\1\0\5\1";
+    "\2\0\2\11\2\1\1\11\5\1\1\0\3\1";
 
   private static int [] zzUnpackAttribute() {
-    int [] result = new int[22];
+    int [] result = new int[16];
     int offset = 0;
     offset = zzUnpackAttribute(ZZ_ATTRIBUTE_PACKED_0, offset, result);
     return result;
@@ -494,52 +485,37 @@ class PygmalionLexer implements FlexLexer {
             { return TokenType.BAD_CHARACTER;
             } 
             // fall through
-          case 11: break;
+          case 8: break;
           case 2: 
             { return TokenType.WHITE_SPACE;
             } 
             // fall through
-          case 12: break;
+          case 9: break;
           case 3: 
             { yybegin(CMD); return PygmalionTypes.COMMAND;
             } 
             // fall through
-          case 13: break;
+          case 10: break;
           case 4: 
-            { yybegin(YYINITIAL);return TokenType.WHITE_SPACE;
+            { yybegin(YYINITIAL);return PygmalionTypes.CRLF;
+            } 
+            // fall through
+          case 11: break;
+          case 5: 
+            { return PygmalionTypes.VALUE;
+            } 
+            // fall through
+          case 12: break;
+          case 6: 
+            { return PygmalionTypes.LITERAL;
+            } 
+            // fall through
+          case 13: break;
+          case 7: 
+            { return PygmalionTypes.FLAGNAME;
             } 
             // fall through
           case 14: break;
-          case 5: 
-            { yybegin(CMD); return TokenType.WHITE_SPACE;
-            } 
-            // fall through
-          case 15: break;
-          case 6: 
-            { return PygmalionTypes.ARGUMENT;
-            } 
-            // fall through
-          case 16: break;
-          case 7: 
-            { yybegin(YYINITIAL); return PygmalionTypes.ARGUMENT;
-            } 
-            // fall through
-          case 17: break;
-          case 8: 
-            { yybegin(FLAG); return TokenType.WHITE_SPACE;
-            } 
-            // fall through
-          case 18: break;
-          case 9: 
-            { return PygmalionTypes.STRING;
-            } 
-            // fall through
-          case 19: break;
-          case 10: 
-            { yybegin(FLAG); return PygmalionTypes.FLAGNAME;
-            } 
-            // fall through
-          case 20: break;
           default:
             zzScanError(ZZ_NO_MATCH);
           }

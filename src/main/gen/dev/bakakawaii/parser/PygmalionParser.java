@@ -36,6 +36,19 @@ public class PygmalionParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
+  // literal | value
+  public static boolean argument(PsiBuilder builder_, int level_) {
+    if (!recursion_guard_(builder_, level_, "argument")) return false;
+    if (!nextTokenIs(builder_, "<argument>", LITERAL, VALUE)) return false;
+    boolean result_;
+    Marker marker_ = enter_section_(builder_, level_, _NONE_, ARGUMENT, "<argument>");
+    result_ = consumeToken(builder_, LITERAL);
+    if (!result_) result_ = consumeToken(builder_, VALUE);
+    exit_section_(builder_, level_, marker_, result_, false, null);
+    return result_;
+  }
+
+  /* ********************************************************** */
   // (flagname argument?) | flagname
   public static boolean flag(PsiBuilder builder_, int level_) {
     if (!recursion_guard_(builder_, level_, "flag")) return false;
@@ -62,7 +75,7 @@ public class PygmalionParser implements PsiParser, LightPsiParser {
   // argument?
   private static boolean flag_0_1(PsiBuilder builder_, int level_) {
     if (!recursion_guard_(builder_, level_, "flag_0_1")) return false;
-    consumeToken(builder_, ARGUMENT);
+    argument(builder_, level_ + 1);
     return true;
   }
 
@@ -90,7 +103,7 @@ public class PygmalionParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // command (argument | string? )+ flag* CRLF?
+  // command argument+ flag* CRLF?
   public static boolean statement(PsiBuilder builder_, int level_) {
     if (!recursion_guard_(builder_, level_, "statement")) return false;
     if (!nextTokenIs(builder_, COMMAND)) return false;
@@ -104,37 +117,19 @@ public class PygmalionParser implements PsiParser, LightPsiParser {
     return result_;
   }
 
-  // (argument | string? )+
+  // argument+
   private static boolean statement_1(PsiBuilder builder_, int level_) {
     if (!recursion_guard_(builder_, level_, "statement_1")) return false;
     boolean result_;
     Marker marker_ = enter_section_(builder_);
-    result_ = statement_1_0(builder_, level_ + 1);
+    result_ = argument(builder_, level_ + 1);
     while (result_) {
       int pos_ = current_position_(builder_);
-      if (!statement_1_0(builder_, level_ + 1)) break;
+      if (!argument(builder_, level_ + 1)) break;
       if (!empty_element_parsed_guard_(builder_, "statement_1", pos_)) break;
     }
     exit_section_(builder_, marker_, null, result_);
     return result_;
-  }
-
-  // argument | string?
-  private static boolean statement_1_0(PsiBuilder builder_, int level_) {
-    if (!recursion_guard_(builder_, level_, "statement_1_0")) return false;
-    boolean result_;
-    Marker marker_ = enter_section_(builder_);
-    result_ = consumeToken(builder_, ARGUMENT);
-    if (!result_) result_ = statement_1_0_1(builder_, level_ + 1);
-    exit_section_(builder_, marker_, null, result_);
-    return result_;
-  }
-
-  // string?
-  private static boolean statement_1_0_1(PsiBuilder builder_, int level_) {
-    if (!recursion_guard_(builder_, level_, "statement_1_0_1")) return false;
-    consumeToken(builder_, STRING);
-    return true;
   }
 
   // flag*

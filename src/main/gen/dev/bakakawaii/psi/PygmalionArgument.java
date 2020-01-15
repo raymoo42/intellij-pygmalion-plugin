@@ -5,9 +5,6 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface PygmalionFlag extends PsiElement {
-
-  @Nullable
-  PygmalionArgument getArgument();
+public interface PygmalionArgument extends PsiElement {
 
 }

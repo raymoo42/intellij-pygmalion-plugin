@@ -17,6 +17,8 @@ simpleFile ::= item_*
 
 private item_ ::= (statement | CRLF )
 
-statement ::= command (argument | string? )+ flag* CRLF?
+statement ::= command argument+ flag* CRLF?
 
 flag ::= (flagname argument?) | flagname
+
+argument ::= literal | value
