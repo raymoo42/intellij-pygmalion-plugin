@@ -40,6 +40,18 @@ idea {
     }
 }
 
+clean.doFirst {
+    delete 'src/main/gen'
+}
+
+compileJava {
+    dependsOn {
+        tasks.findAll(
+                { task -> task.name.startsWith("generate") }
+        )
+    }
+}
+
 grammarKit {
     // version of IntelliJ patched JFlex (see bintray link below), Default is 1.7.0-1
     jflexRelease = '1.7.0-2'
